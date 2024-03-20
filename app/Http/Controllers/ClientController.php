@@ -39,7 +39,15 @@ class ClientController extends Controller
 
     public function show(Request $request)
     {
-       
+        $lastName = $request->get('last_name');
+        $client = Client::query();
+
+        if ($lastName) {
+            $client->where('last_name', 'like', "%$lastName%");
+        }
+
+        $client = $client->orderBy('last_name')->get();
+        return view('show', compact('client'));
     }
 
     
