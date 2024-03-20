@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('send:client-profile-image-reminders')->everyThreeDays(); # Every 3 days
         // $schedule->command('inspire')->hourly();
     }
 

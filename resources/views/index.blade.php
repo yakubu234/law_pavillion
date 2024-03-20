@@ -1,4 +1,10 @@
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
+<br>
 <form action="{{ route('clients.get') }}">
     <label>Search by Last Name</label>
     <input type="text" name="last_name" placeholder="last name" required><br>
