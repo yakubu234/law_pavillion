@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Mail\WelcomeMail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Client extends Model
 {
@@ -20,4 +22,13 @@ class Client extends Model
         'case_details',
         'profile_image_notification'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($client) {
+            Mail::to($client->email)->send(new WelcomeMail($client));
+        });
+    }
 }

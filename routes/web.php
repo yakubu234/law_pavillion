@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'clients'], function () {
     Route::get('/',[ClientController::class,'index'])->name('clients.index');
     Route::get('get',[ClientController::class,'show']);
+    Route::get('create',[ClientController::class,'showCreateView'])->name('clients.create');
     Route::post('create',[ClientController::class,'create']);
     Route::put('update',[ClientController::class,'update']);
 });

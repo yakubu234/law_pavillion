@@ -2,21 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateClientAction;
+use App\Http\Requests\CreateClientRequest;
+use App\Models\Client;
+use Exception;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function create(Request $request)
+    public function create(CreateClientRequest $request)
     {
-        
+        $fileName = '';
+         # Upload profile picture
+         if ($request->hasFile('profile_image')) {
+            try {
+                if ($request->hasFile('profile_image')) {
+                    $fileName = $request->file('profile_image')->store('profile_images', 'public');
+                }
+            } catch (\Throwable $th) {
+                throw new Exception($th->getMessage()); # log the error
+            }
+        }
+        return (new CreateClientAction())->create($request->validated(), $fileName);
+    }
 
-        return redirect()->route('clients.index')->with('success', 'Client created successfully!');
-
+    public function showCreateView()
+    {
+        return view('create');
     }
 
     public function index(Request $request)
     {
-
+        
     }
 
     public function show(Request $request)
