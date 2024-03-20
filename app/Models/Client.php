@@ -27,7 +27,7 @@ class Client extends Model
     {
         parent::boot();
 
-        self::created(function ($client) {
+        return self::created(function ($client) {
             Mail::to($client->email)->send(new WelcomeMail($client));
         });
     }

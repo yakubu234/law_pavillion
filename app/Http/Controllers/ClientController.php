@@ -33,13 +33,16 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        
+        $clients = Client::query()->orderBy('last_name')->get();
+        return view('index', compact('clients'));
     }
 
     public function show(Request $request)
     {
-
+       
     }
+
+    
 
     public function update(Request $request)
     {
